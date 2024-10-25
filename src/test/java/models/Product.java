@@ -18,6 +18,15 @@ public class Product {
         setCategory_id(category_id);
     }
 
+    //Used for Put request
+    public Product(int id, String name,String description , double price, int category_id ){
+        setId(id);
+        setName(name);
+        setDescription(description);
+        setPrice(price);
+        setCategory_id(category_id);
+    }
+
     public int getId() {
         return id;
     }

@@ -70,5 +70,17 @@ public class ApiTest {
         var response = given().body(body).when().delete(endpoint).then();
         response.log().body();
     }
+
+    @Test
+    public void createSerializedProduct(){
+        String endpoint = "http://localhost:8888/api_testing/product/delete.php";
+        String body= """
+                {
+                "id":1000
+                }
+                """;
+        var response = given().body(body).when().delete(endpoint).then();
+        response.log().body();
+    }
 }
 
