@@ -26,7 +26,17 @@ public class ApiTest {
         }
     @Test
     public void createProduct(){
-        String endpoint = "http://localhost:8888/api_testing/product/read_one.php"
+        String endpoint = "http://localhost:8888/api_testing/product/read_one.php";
+        String body = """
+                {
+                        "name":" Water Bottle",
+                        "description":"Blue water bottle.Holds 2 Ounces"
+                        "category_id": 3
+
+                }
+                """;
+        var response = given().body(body).when().post(endpoint).then();
+        response.log().body();
     }
 }
 
