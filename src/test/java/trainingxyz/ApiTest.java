@@ -1,5 +1,6 @@
 package trainingxyz;
 
+import models.Product;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -73,13 +74,20 @@ public class ApiTest {
 
     @Test
     public void createSerializedProduct(){
-        String endpoint = "http://localhost:8888/api_testing/product/delete.php";
-        String body= """
-                {
-                "id":1000
-                }
-                """;
-        var response = given().body(body).when().delete(endpoint).then();
+        String endpoint = "http://localhost:8888/api_testing/product/create.php";
+        Product product = new Product(
+                "Vodka Bottle",
+                "Blue vodka bottle.Holds 2 Ounces",
+                56,
+                3
+        );
+
+//         body= """
+//                {
+//                "id":1000
+//                }
+//                """;
+        var response = given().body(product).when().delete(endpoint).then();
         response.log().body();
     }
 }
