@@ -19,7 +19,7 @@ public class ApiTest {
         String endpoint = "http://localhost:8888/api_testing/category/read_one.php";
         var response =
                 given().
-                        queryParam("id", 2).
+                        queryParam("id", 10).
                         when().
                         get(endpoint)
                         .then();
@@ -30,9 +30,9 @@ public class ApiTest {
         String endpoint = "http://localhost:8888/api_testing/product/create.php";
         String body = """
                 {
-                        "name":"Vodka Bottle",
-                        "description":"Blue vodka bottle.Holds 2 Ounces",
-                        "price":40 ,
+                        "name":"Gucci Sweatband",
+                        "description":"Blue cooler cotton sweatband ",
+                        "price":5 ,
                         "category_id": 3
 
                 }
@@ -48,14 +48,11 @@ public class ApiTest {
         String endpoint = "http://localhost:8888/api_testing/product/update.php";
         String body = """
                       {
-                        "id":1000,
-                        "name":"Vodka Bottle"
-                        "description":"Blue vodka bottle.Holds 2 Ounces",
-                        "price":35,
-                        "category_id": 3
+                        "id":1007,
+                        "price":10
                       }
                        """;
-        var response = given().body(body).when()
+        var response = given().body(body)
                 .put(endpoint).then();
         response.log().body();
     }
@@ -65,7 +62,7 @@ public class ApiTest {
         String endpoint = "http://localhost:8888/api_testing/product/delete.php";
         String body= """
                 {
-                "id":1000
+                "id":1007
                 }
                 """;
         var response = given().body(body).when().delete(endpoint).then();
@@ -81,12 +78,6 @@ public class ApiTest {
                 56,
                 3
         );
-
-//         body= """
-//                {
-//                "id":1000
-//                }
-//                """;
         var response = given().body(product).when().delete(endpoint).then();
         response.log().body();
     }
