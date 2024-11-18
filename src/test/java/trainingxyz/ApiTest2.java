@@ -1,9 +1,11 @@
 package trainingxyz;
 
 import models.Product;
+import org.hamcrest.Matcher;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
 
 public class ApiTest2 {
     @Test
@@ -15,16 +17,37 @@ public class ApiTest2 {
 
     @Test
     public void getProduct() {
-        String endpoint ="http://localhost:8888/api_testing/product/read_one.php";
-        var response =
-                given().
-                        queryParam("id", 1007).
+        String endpoint = "http://localhost:8888/api_testing/product/read.php";
+        //var response =
+        given().
+                queryParam("id", 1007).
                         when().
-                        get(endpoint).
-                        then().
-                        assertThat().statusCode(200);
+                get(endpoint).
+                then().
+                log().
+                body().
+                assertThat().
+                statusCode(200).
+                body("records.size()", greaterThan(0)).
+                body("records.id", everyItem(notNullValue())).
+                body("records.name", everyItem(notNullValue())).
+                body("records.price", everyItem(notNullValue())).
+                body("records.description", everyItem(notNullValue())).
+                body("records.category_id", everyItem(notNullValue()));
 
-    }
+        //checking the body of the response
+        //body("id", equalTo("1007")).
+        // body("name", equalTo("Sweatband")).
+        //body("price",equalTo("10.00")).
+        //body("description" , equalTo("Blue cotton sweatband"));
+        //Checking the status
+        //assertThat().statusCode(200);
+
+
+}
+
+
+
     @Test
     public void createProduct(){
         String endpoint = "http://localhost:8888/api_testing/product/create.php";
