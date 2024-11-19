@@ -20,20 +20,22 @@ public class ApiTest2 {
         String endpoint = "http://localhost:8888/api_testing/product/read.php";
         //var response =
         given().
-                queryParam("id", 1007).
+                //queryParam("id", 1007).
                         when().
                 get(endpoint).
                 then().
                 log().
-                body().
+                headers().
                 assertThat().
+                header("Content-Type", equalTo("application/json; charset=UTF-8")).
                 statusCode(200).
                 body("records.size()", greaterThan(0)).
                 body("records.id", everyItem(notNullValue())).
                 body("records.name", everyItem(notNullValue())).
                 body("records.price", everyItem(notNullValue())).
                 body("records.description", everyItem(notNullValue())).
-                body("records.category_id", everyItem(notNullValue()));
+                body("records.category_id", everyItem(notNullValue())).
+                body("records.id[0]", equalTo(1007));
 
         //checking the body of the response
         //body("id", equalTo("1007")).
